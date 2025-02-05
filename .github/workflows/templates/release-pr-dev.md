@@ -1,4 +1,4 @@
-Release `{{ version }}` to `dev`
+Release `${{ inputs.version }}` to `dev`
 
 ### Pending
 

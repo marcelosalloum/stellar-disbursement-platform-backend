@@ -67,12 +67,11 @@ jobs:
         id: create_main_pr
         working-directory: stellar-disbursement-platform-backend
         run: |
-          MAIN_PR_URL=$(sed "s/{{ version }}/${{ inputs.version }}/g" ../.github/workflows/templates/release-pr-main.md | \
-          gh pr create --repo ${{ env.REPO_NAME }} \
+          MAIN_PR_URL=$(gh pr create --repo ${{ env.REPO_NAME }} \
             --base main \
             --head release/${{ inputs.version }} \
             --title "Release \`${{ inputs.version }}\` to \`main\`" \
-            --body-file - \
+            --body-file ../.github/workflows/templates/release-pr-main.md \
             --assignee "${{ github.actor }}" \
             --reviewer "${{ env.REVIEWER }}")
           echo "main_pr_url=${MAIN_PR_URL}" >> $GITHUB_OUTPUT
@@ -87,12 +86,11 @@ jobs:
         id: create_dev_pr
         working-directory: stellar-disbursement-platform-backend
         run: |
-          DEV_PR_URL=$(sed "s/{{ version }}/${{ inputs.version }}/g" ../.github/workflows/templates/release-pr-dev.md | \
-          gh pr create --repo ${{ env.REPO_NAME }} \
+          DEV_PR_URL=$(gh pr create --repo ${{ env.REPO_NAME }} \
             --base develop \
             --head release/${{ inputs.version }}-dev \
             --title "Release \`${{ inputs.version }}\` to \`dev\`" \
-            --body-file - \
+            --body-file ../.github/workflows/templates/release-pr-dev.md \
             --assignee "${{ github.actor }}" \
             --reviewer "${{ env.REVIEWER }}")
           echo "dev_pr_url=${DEV_PR_URL}" >> $GITHUB_OUTPUT
